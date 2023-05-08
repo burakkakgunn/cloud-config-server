@@ -1,0 +1,32 @@
+server:
+  port: 8060
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+
+spring:
+  application:
+    name: cloud-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: employee-service
+          uri: lb://user-service
+          predicates:
+            - Path=/user/**
+        - id: department-service
+          uri: lb://department-service
+          predicates:
+            - Path=/department/**
+        - id: r1
+          uri: https://httpbin.org
+          predicates:
+            - Path=/uuid
+            - Host=**.example.com
