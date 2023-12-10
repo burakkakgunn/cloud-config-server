@@ -1,9 +1,17 @@
 server:
   port: 8082
 
+jwt:
+  secret: 5367566B59703373367639792F423F4528482B4D6251655468576D5A71347437
+
 # Database
 spring:
+  main:
+    allow-circular-references: true
   datasource:
+    hikari:
+      metrics:
+        enabled: true
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/postgres
     username: postgres
@@ -17,6 +25,12 @@ spring:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     open-in-view: false
     generate-ddl: true
+  redis:
+    host: localhost
+    port: 6379
+  security:
+    ignored:
+      - /user/login/**
 
 eureka:
   client:
@@ -27,3 +41,12 @@ management:
   tracing:
     sampling:
       probability: 1.0
+  endpoint:
+    health:
+      show-details: always
+    metrics:
+      enabled: true
+
+logging:
+  level:
+    root: INFO

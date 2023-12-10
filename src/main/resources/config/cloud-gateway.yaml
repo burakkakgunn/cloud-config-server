@@ -10,6 +10,11 @@ management:
   tracing:
     sampling:
       probability: 1.0
+  endpoint:
+    health:
+      show-details: always
+    metrics:
+      enabled: true
 
 spring:
   application:
@@ -17,7 +22,7 @@ spring:
   cloud:
     gateway:
       routes:
-        - id: employee-service
+        - id: user-service
           uri: lb://user-service
           predicates:
             - Path=/user/**
